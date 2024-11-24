@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const Workout = require("../models/Workout");
 
-// Home Page
 router.get("/", async (req, res) => {
   try {
     const workouts = await Workout.find();
@@ -12,12 +11,11 @@ router.get("/", async (req, res) => {
   }
 });
 
-// Add Workout Form
+//Add Workout 
 router.get("/add", (req, res) => {
   res.render("addWorkout");
 });
 
-// Add Workout
 router.post("/add", async (req, res) => {
   try {
     const newWorkout = new Workout(req.body);
@@ -28,7 +26,7 @@ router.post("/add", async (req, res) => {
   }
 });
 
-// Edit Workout Form
+//Edit Workout
 router.get("/edit/:id", async (req, res) => {
   try {
     const workout = await Workout.findById(req.params.id);
@@ -38,7 +36,6 @@ router.get("/edit/:id", async (req, res) => {
   }
 });
 
-// Update Workout
 router.post("/edit/:id", async (req, res) => {
   try {
     await Workout.findByIdAndUpdate(req.params.id, req.body);
@@ -48,7 +45,7 @@ router.post("/edit/:id", async (req, res) => {
   }
 });
 
-// Delete Workout
+//Delete Workout
 router.post("/delete/:id", async (req, res) => {
   try {
     await Workout.findByIdAndDelete(req.params.id);
@@ -57,5 +54,4 @@ router.post("/delete/:id", async (req, res) => {
     res.status(500).send("Error deleting workout");
   }
 });
-
 module.exports = router;
